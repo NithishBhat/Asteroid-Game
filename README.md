@@ -1,41 +1,30 @@
 # Asteroids (Unity 2D)
 
-A 2D Asteroids-style arcade game built in Unity with C#. Fly a ship, shoot asteroids that break apart on impact, and survive as long as you can. The repo includes the full Unity project and a WebGL build.
+My take on the classic arcade game Asteroids, built in Unity with C#. You fly a small ship, shoot rocks that break into smaller pieces when hit, and try to stay alive as long as you can; a timer on screen shows how long you lasted. The repo has the full Unity project and a build that runs in the browser.
 
-## Tech Stack
+## How it works
 
-- Unity 2019.2.8f1 (2D physics: `Rigidbody2D`, `CircleCollider2D`)
-- C#
-- WebGL build target
+The ship moves with real 2D physics: rotating and thrusting apply forces, so it drifts like it would in space. Left Ctrl fires a bullet in the direction you're facing, and bullets disappear after two seconds. Big asteroids split into two smaller rocks when shot; small ones are destroyed. Anything that flies off one edge of the screen comes back on the opposite side.
 
-## Features
+Asteroids spawn from the four screen edges with random directions and speeds. There are explosion animations and sound effects for shooting, hits and dying.
 
-- **Physics-based ship movement**: rotation and thrust applied as forces on a `Rigidbody2D`
-- **Shooting**: Left Ctrl fires bullets in the ship's facing direction; bullets expire after 2 seconds via a reusable `Timer` component
-- **Splitting asteroids**: large asteroids spawn two smaller rocks when hit; small rocks are destroyed outright
-- **Screen wrapping**: the ship, bullets and asteroids wrap around screen edges (`ScreenUtils` caches screen bounds in world coordinates)
-- **Randomized spawning**: asteroids of three types spawn at the four screen edges with random direction and impulse
-- **Explosions and audio**: animated explosion prefab plus a static `AudioManager` for shoot, hit and death sounds
-- **HUD**: survival timer that stops when the ship is destroyed
+## Running it
 
-## Running It
-
-**WebGL build:** `Asteroid game (Final Build)/` contains a Unity WebGL export. Serve that folder with any static web server and open `index.html` (browsers generally block Unity WebGL builds opened directly from the file system).
+**In the browser:** `Asteroid game (Final Build)/` is a Unity WebGL build. Serve that folder with any static web server and open `index.html` (browsers usually block Unity WebGL builds opened straight from disk).
 
 **From source:** open `Asteroid game (SourceCode and Assets)/` in Unity Hub with Unity 2019.2.x, load `Assets/scenes/scene0.unity`, and press Play.
 
-## Project Structure
+## Layout
 
 ```
-Asteroid game (Final Build)/            WebGL build (index.html, Build/, TemplateData/)
+Asteroid game (Final Build)/            WebGL build
 Asteroid game (SourceCode and Assets)/
   Assets/
     scripts/      Ship, asteroid, smallrock, bullet, spawner, HUD, Timer,
                   ScreenUtils, AudioManager, Explosion, ...
     prefabs/      ship, bullet, rock variants, explosion
-    sprites/      ship, rock, bullet and explosion art
-    audio/        shoot / hit / die sound effects
-    animations/   explosion animation + controller
+    sprites/      art
+    audio/        sound effects
+    animations/   explosion animation
     scenes/       scene0.unity
-  ProjectSettings/, Packages/
 ```
